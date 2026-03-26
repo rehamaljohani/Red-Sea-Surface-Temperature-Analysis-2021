@@ -1,0 +1,6 @@
+var redSea = ee.Geometry.Rectangle([32.0, 12.0, 44.0, 30.0]);
+var sst2021 = ee.ImageCollection("NASA/OCEANDATA/MODIS-Aqua/L3SMI");
+var sstMean = sst2021.filterBounds(redSea).filterDate('2021-01-01', '2021-12-31').select('sst').mean().clip(redSea);
+var colors = {min: 20, max: 32, palette: ['blue', 'green', 'yellow', 'red']};
+Map.centerObject(redSea, 5);
+Map.addLayer(sstMean, colors, 'Red Sea Temperature 2021');
